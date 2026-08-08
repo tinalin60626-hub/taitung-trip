@@ -3,58 +3,503 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台東山海美食 4 日遊</title>
+    <title>台東夏日山海 4 日遊</title>
     <style>
-        :root { --primary: #0ea5e9; --accent: #f59e0b; --bg: #f0f9ff; --card: #ffffff; }
-        body { background: var(--bg); font-family: 'Helvetica Neue', Arial, sans-serif; padding-bottom: 80px; margin: 0; }
-        header { background: var(--primary); color: white; padding: 20px; text-align: center; }
-        .container { max-width: 500px; margin: 0 auto; padding: 10px; }
-        .card { background: var(--card); border-radius: 15px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .day-title { font-weight: bold; color: var(--primary); margin: 15px 0 10px 5px; font-size: 1.2rem; }
-        .time { color: var(--accent); font-weight: bold; font-size: 0.9rem; }
-        .map-link { display: block; background: #e0f2fe; color: #0369a1; text-align: center; padding: 8px; border-radius: 8px; text-decoration: none; font-size: 0.85rem; margin-top: 8px; }
-        .nav { position: fixed; bottom: 0; width: 100%; display: flex; background: white; border-top: 1px solid #eee; }
-        .nav button { flex: 1; padding: 15px; border: none; background: none; font-size: 0.8rem; }
-        .hidden { display: none; }
+        :root {
+            --primary-color: #0284c7;
+            --primary-light: #e0f2fe;
+            --accent-color: #f59e0b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding-bottom: 90px;
+        }
+
+        /* 標題與熱氣球主視覺設計 */
+        header {
+            background: linear-gradient(135deg, #0284c7, #0369a1, #0284c7);
+            color: white;
+            padding: 28px 20px 24px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balloon-hero {
+            font-size: 2.8rem;
+            margin-bottom: 8px;
+            display: inline-block;
+            animation: floatBalloon 3s ease-in-out infinite;
+        }
+
+        @keyframes floatBalloon {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-8px) rotate(3deg);
+            }
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 每日行程時間軸樣式 */
+        .day-section {
+            margin-bottom: 24px;
+        }
+
+        .day-title {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            background: var(--primary-light);
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 16px;
+            border-left: 2px solid var(--border-color);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+
+        .time-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .time-header {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 4px;
+        }
+
+        .activity-title {
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .activity-desc {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #f1f5f9;
+            color: #0369a1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .map-btn:hover {
+            background: #e2e8f0;
+        }
+
+        /* 資訊卡片樣式 */
+        .info-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .info-card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+
+        .info-card p {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        /* 底部導航列 */
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            border-top: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            background: none;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .nav-item span.icon {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
+        }
     </style>
 </head>
 <body>
 
-<header><h1>🌴 台東 4 日美食地圖</h1></header>
+    <header>
+        <div class="balloon-hero">🎈</div>
+        <h1>台東夏日山海美食 4 日遊</h1>
+        <p>8/11 (一) ～ 8/14 (四) ｜ 2人同行</p>
+    </header>
 
-<div class="container" id="content">
-    <!-- 這邊展示一個簡化版的內容，實際請將完整行程貼入 -->
-    <div id="schedule" class="page">
-        <div class="day-title">🌾 8/11 (一) Day 1</div>
-        <div class="card">
-            <div class="time">13:40</div>
-            <strong>池上便當午餐</strong>
-            <a class="map-link" href="https://maps.google.com/?q=池上便當">📍 開啟導航</a>
+    <div class="container">
+        <!-- 每日行程 -->
+        <div id="tab-schedule" class="tab-content active">
+            
+            <!-- DAY 1 -->
+            <div class="day-section">
+                <div class="day-title"><span>🌾 8/11 (一) Day 1</span><span>台東 → 池上 → 關山</span></div>
+                
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">07:05 - 11:10</div>
+                        <div class="activity-title">🚆 搭乘火車前往台東</div>
+                        <div class="activity-desc">板橋火車站 07:05 發車，預計 11:10 抵達台東火車站。</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">11:10 - 12:30</div>
+                        <div class="activity-title">🚗 取行李＋取租車</div>
+                        <div class="activity-desc">領取行李與汽車（蘇子翔代墊 $3,329），市區簡單吃早餐。</div>
+                        <a href="https://maps.google.com/?q=台東火車站" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">13:40 - 14:40</div>
+                        <div class="activity-title">🍱 池上午餐</div>
+                        <div class="activity-desc">品嚐經典的**池上便當**，把肚子填飽！</div>
+                        <a href="https://maps.google.com/?q=池上鄉" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">14:40 - 17:15</div>
+                        <div class="activity-title">🌾 大坡池 ＆ 伯朗大道</div>
+                        <div class="activity-desc">大坡池散步拍照，租腳踏車／電動車漫遊伯朗大道、金城武樹。</div>
+                        <a href="https://maps.google.com/?q=伯朗大道" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">17:45 - 18:45</div>
+                        <div class="activity-title">🌿 關山親水公園（備案）</div>
+                        <div class="activity-desc">有體力、有時間才去，累了可直接前往飯店。</div>
+                        <a href="https://maps.google.com/?q=關山親水公園" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">18:45 - 19:45</div>
+                        <div class="activity-title">🍴 關山晚餐</div>
+                        <div class="activity-desc">推薦品嚐：**關山臭豆腐**、**老東芳飲料店**。</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">19:45</div>
+                        <div class="activity-title">🏨 入住關山飯店</div>
+                        <div class="activity-desc">第一晚住宿 $1,200 (林庭卉代墊)。⭐ 記得早點睡，隔天 03:30 需起床！</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAY 2 -->
+            <div class="day-section">
+                <div class="day-title"><span>🎈 8/12 (二) Day 2</span><span>鹿野熱氣球 → 東河 → 三仙台 → 成功</span></div>
+                
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">05:30 - 07:00</div>
+                        <div class="activity-title">🎈 鹿野高台熱氣球</div>
+                        <div class="activity-desc">清晨欣賞熱氣球升空盛況。結束後返回關山補眠。</div>
+                        <a href="https://maps.google.com/?q=鹿野高台" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">11:00 - 14:00</div>
+                        <div class="activity-title">🥟 東河包子 ＆ 東河漫遊</div>
+                        <div class="activity-desc">退房後往東河移動，品嚐**東河包子**、**東香炸物**，喝杯**海特咖啡**。</div>
+                        <a href="https://maps.google.com/?q=東河包子" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">15:00 - 18:10</div>
+                        <div class="activity-title">🌊 三仙台、比西里岸、杉原灣</div>
+                        <div class="activity-desc">走訪三仙台跨海步道、比西里岸藝術拍照，傍晚至杉原灣看海踩水。</div>
+                        <a href="https://maps.google.com/?q=三仙台" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">21:00</div>
+                        <div class="activity-title">🏨 入住成功鎮飯店</div>
+                        <div class="activity-desc">第二晚住宿 $1,250 (林庭卉代墊)。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAY 3 -->
+            <div class="day-section">
+                <div class="day-title"><span>🌊 8/13 (三) Day 3</span><span>南迴線探險 → 無人機與煙火</span></div>
+                
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">09:00 - 14:00</div>
+                        <div class="activity-title">🌼 華源海灣 ＆ 太麻里金針山</div>
+                        <div class="activity-desc">一路往南！造訪華源海灣、太麻里招財貓土地公，並在金針山悠閒賞景用餐 3 小時。</div>
+                        <a href="https://maps.google.com/?q=太麻里金針山" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">15:00 - 16:00</div>
+                        <div class="activity-title">🚉 多良車站</div>
+                        <div class="activity-desc">全台最美火車站打卡拍照。</div>
+                        <a href="https://maps.google.com/?q=多良車站" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">17:30 - 19:00</div>
+                        <div class="activity-title">🛵 租機車 ＆ 無人機煙火秀</div>
+                        <div class="activity-desc">返回台東市區租機車 ($300, 林庭卉代墊)，飯店放行李後覓食（可買**藍蜻蜓**或**阿鈜炸雞**配 **叮哥** / **自在軒**），19:00 觀賞無人機與煙火。</div>
+                        <a href="https://maps.google.com/?q=台東市" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">晚上</div>
+                        <div class="activity-title">🏨 入住台東市飯店</div>
+                        <div class="activity-desc">第三晚住宿 $1,260 (林庭卉代墊)。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DAY 4 -->
+            <div class="day-section">
+                <div class="day-title"><span>🍜 8/14 (四) Day 4</span><span>市區美食巡禮 → 回程</span></div>
+                
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">08:00 - 10:30</div>
+                        <div class="activity-title">🍳 早餐與汽車還車</div>
+                        <div class="activity-desc">享用早餐（**榕樹下米苔目** / **客來吃樂**），10:30 準時完成汽車還車，全面改騎機車！</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">10:30 - 17:00</div>
+                        <div class="activity-title">🌳 市區漫遊、美食與伴手禮大掃貨</div>
+                        <div class="activity-desc">
+                            • 景點：台東森林公園、鐵花村、海濱公園。<br>
+                            • 美食口袋名單隨心吃：強強廚房、QQ豆乳雞、花式蔥餅、黃記蔥油餅、林家臭豆腐（或阿三哥/昱禎）、隱山茶道、綠生活、果真農台東水國珍奶。<br>
+                            • 伴手禮必買：陳記麻糬、東興蜜餞、東傑製茶所、台東農會、雨田家馬卡龍。
+                        </div>
+                        <a href="https://maps.google.com/?q=台東森林公園" target="_blank" class="map-btn">📍 Google 導航</a>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="time-card">
+                        <div class="time-header">18:35 - 23:19</div>
+                        <div class="activity-title">🚆 搭火車返回板橋</div>
+                        <div class="activity-desc">17:30 還機車、前往火車站，搭乘 18:35 自強號平安返回板橋 ❤️</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="card">
-            <div class="time">18:45</div>
-            <strong>關山晚餐 (臭豆腐/老東芳)</strong>
+
+        <!-- 帳務分工 -->
+        <div id="tab-budget" class="tab-content">
+            <div class="info-card">
+                <h3>💰 帳務分工總覽</h3>
+                <p><b>👩 林庭卉代墊總計：$7,818</b><br>
+                • 火車票：$3,808<br>
+                • 租機車：$300<br>
+                • 第一晚關山住宿：$1,200<br>
+                • 第二晚成功住宿：$1,250<br>
+                • 第三晚台東市住宿：$1,260</p>
+                <hr style="border:0; border-top:1px solid #eee; margin:10px 0;">
+                <p><b>👨 蘇子翔代墊總計：$3,329</b><br>
+                • 汽車租賃：$3,329</p>
+            </div>
+            <div class="info-card">
+                <h3>💡 預算說明</h3>
+                <p>• 兩位大人同行，餐食與伴手禮目前採取「看到想吃就買、隨性自由發揮」的無預算上限模式！</p>
+            </div>
+        </div>
+
+        <!-- 交通資訊 -->
+        <div id="tab-transport" class="tab-content">
+            <div class="info-card">
+                <h3>🚆 鐵路交通</h3>
+                <p>• 8/11 去程：板橋 07:05 → 台東 11:10 (自強號)</p>
+                <p>• 8/14 回程：台東 18:35 → 板橋 23:19 (自強號)</p>
+            </div>
+            <div class="info-card">
+                <h3>🚗 汽車租賃</h3>
+                <p>• 8/11 11:30 ～ 8/14 10:30 (蘇子翔代墊 $3,329)</p>
+            </div>
+            <div class="info-card">
+                <h3>🛵 機車租賃</h3>
+                <p>• 8/13 17:30 起租，8/14 汽車還車後全面改機車 ($300，林庭卉代墊)</p>
+            </div>
+        </div>
+
+        <!-- 行李與準備 -->
+        <div id="tab-luggage" class="tab-content">
+            <div class="info-card">
+                <h3>🎒 行前準備與行李清單</h3>
+                <p>• <b>證件類</b>：身分證、健保卡、汽車與機車駕照（租車必備）。</p>
+                <p>• <b>衣物防曬</b>：輕便透氣衣物、防曬乳、太陽眼鏡、遮陽帽、薄外套（冷氣房與早晚用）。</p>
+                <p>• <b>3C 裝備</b>：手機、行動電源、充電線。</p>
+                <p>• <b>海邊備品</b>：拖鞋 / 涼鞋、環保購物袋（裝伴手禮）。</p>
+            </div>
         </div>
     </div>
-    <div id="budget" class="page hidden">
-        <div class="card">
-            <h3>💰 帳務分工</h3>
-            <p>林庭卉代墊：$7,818 (火車/租機車/住宿)</p>
-            <p>蘇子翔代墊：$3,329 (租汽車)</p>
-        </div>
-    </div>
-</div>
 
-<nav class="nav">
-    <button onclick="show('schedule')">📅 行程</button>
-    <button onclick="show('budget')">💰 帳務</button>
-</nav>
+    <!-- 底部導航列 -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchTab('schedule', this)">
+            <span class="icon">📅</span>
+            <span>每日行程</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('budget', this)">
+            <span class="icon">💰</span>
+            <span>帳務分工</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('transport', this)">
+            <span class="icon">🚆</span>
+            <span>交通資訊</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('luggage', this)">
+            <span class="icon">🎒</span>
+            <span>行前準備</span>
+        </button>
+    </nav>
 
-<script>
-    function show(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
-        document.getElementById(id).classList.remove('hidden');
-    }
-</script>
+    <script>
+        function switchTab(tabId, btnElement) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            const items = document.querySelectorAll('.nav-item');
+            items.forEach(item => item.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
