@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台東山海美食 4 日遊</title>
+    <style>
+        :root { --primary: #0ea5e9; --accent: #f59e0b; --bg: #f0f9ff; --card: #ffffff; }
+        body { background: var(--bg); font-family: 'Helvetica Neue', Arial, sans-serif; padding-bottom: 80px; margin: 0; }
+        header { background: var(--primary); color: white; padding: 20px; text-align: center; }
+        .container { max-width: 500px; margin: 0 auto; padding: 10px; }
+        .card { background: var(--card); border-radius: 15px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .day-title { font-weight: bold; color: var(--primary); margin: 15px 0 10px 5px; font-size: 1.2rem; }
+        .time { color: var(--accent); font-weight: bold; font-size: 0.9rem; }
+        .map-link { display: block; background: #e0f2fe; color: #0369a1; text-align: center; padding: 8px; border-radius: 8px; text-decoration: none; font-size: 0.85rem; margin-top: 8px; }
+        .nav { position: fixed; bottom: 0; width: 100%; display: flex; background: white; border-top: 1px solid #eee; }
+        .nav button { flex: 1; padding: 15px; border: none; background: none; font-size: 0.8rem; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<header><h1>🌴 台東 4 日美食地圖</h1></header>
+
+<div class="container" id="content">
+    <!-- 這邊展示一個簡化版的內容，實際請將完整行程貼入 -->
+    <div id="schedule" class="page">
+        <div class="day-title">🌾 8/11 (一) Day 1</div>
+        <div class="card">
+            <div class="time">13:40</div>
+            <strong>池上便當午餐</strong>
+            <a class="map-link" href="https://maps.google.com/?q=池上便當">📍 開啟導航</a>
+        </div>
+        <div class="card">
+            <div class="time">18:45</div>
+            <strong>關山晚餐 (臭豆腐/老東芳)</strong>
+        </div>
+    </div>
+    <div id="budget" class="page hidden">
+        <div class="card">
+            <h3>💰 帳務分工</h3>
+            <p>林庭卉代墊：$7,818 (火車/租機車/住宿)</p>
+            <p>蘇子翔代墊：$3,329 (租汽車)</p>
+        </div>
+    </div>
+</div>
+
+<nav class="nav">
+    <button onclick="show('schedule')">📅 行程</button>
+    <button onclick="show('budget')">💰 帳務</button>
+</nav>
+
+<script>
+    function show(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+    }
+</script>
+</body>
+</html>
