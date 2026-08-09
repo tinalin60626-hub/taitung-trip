@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>台東夏日山海美食 4 日遊</title>
+    <title>2026 臺灣國際熱氣球嘉年華 ｜ 台東山海美食 4 日遊</title>
     <style>
         :root {
             --primary-color: #0284c7;
             --primary-light: #e0f2fe;
             --accent-color: #f59e0b;
+            --festival-orange: #f97316;
+            --festival-pink: #ec4899;
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #1e293b;
@@ -29,24 +31,41 @@
             padding-bottom: 90px;
         }
 
+        /* 官方嘉年華風格主視覺 */
         header {
-            background: linear-gradient(135deg, #0284c7, #0369a1, #0284c7);
+            background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #0284c7 100%);
             color: white;
-            padding: 28px 20px 24px 20px;
+            padding: 30px 20px 26px 20px;
             text-align: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             position: relative;
             overflow: hidden;
+            border-bottom: 4px solid var(--accent-color);
         }
 
-        .balloon-hero {
-            font-size: 2.8rem;
-            margin-bottom: 8px;
+        .festival-badge {
             display: inline-block;
-            animation: floatBalloon 3s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
-        @keyframes floatBalloon {
+        .balloon-hero-group {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            animation: floatBalloons 3.5s ease-in-out infinite;
+        }
+
+        @keyframes floatBalloons {
             0%, 100% {
                 transform: translateY(0) rotate(0deg);
             }
@@ -56,15 +75,17 @@
         }
 
         header h1 {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             margin-bottom: 6px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         header p {
-            font-size: 0.85rem;
-            opacity: 0.9;
+            font-size: 0.82rem;
+            opacity: 0.95;
+            font-weight: 500;
         }
 
         .container {
@@ -96,6 +117,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-left: 4px solid var(--primary-color);
         }
 
         .timeline-item {
@@ -226,7 +248,10 @@
 <body>
 
     <header>
-        <div class="balloon-hero">🎈</div>
+        <div class="festival-badge">🎈 2026 臺灣國際熱氣球嘉年華官方風格</div>
+        <div class="balloon-hero-group">
+            <span>🎈</span><span>🎨</span><span>✨</span>
+        </div>
         <h1>台東夏日山海美食 4 日遊</h1>
         <p>8/11 (一) ～ 8/14 (四) ｜ 2人同行</p>
     </header>
