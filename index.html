@@ -86,18 +86,19 @@
             backdrop-filter: blur(4px);
         }
 
-        /* 熱氣球主題卡片 */
+        /* 熱氣球主題卡片 (純淨版，無多餘字條) */
         .chiikawa-balloon-card {
             background: rgba(255, 255, 255, 0.95);
             color: #1e293b;
             max-width: 220px;
             margin: 0 auto 12px auto;
-            padding: 12px;
+            padding: 16px 12px;
             border-radius: 24px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            gap: 12px;
             animation: floatHeroBalloon 3s ease-in-out infinite;
             border: 2px solid #fbcfe8;
         }
@@ -107,13 +108,9 @@
             50% { transform: translateY(-6px) scale(1.02); }
         }
 
-        .chiikawa-name {
-            font-size: 0.85rem;
-            font-weight: 800;
-            color: #db2777;
-            background: #fce7f3;
-            padding: 4px 12px;
-            border-radius: 12px;
+        .balloon-icon-large {
+            font-size: 2.5rem;
+            line-height: 1;
         }
 
         header h1 {
@@ -300,7 +297,8 @@
             
             <!-- 熱氣球主題卡片 -->
             <div class="chiikawa-balloon-card">
-                <div class="chiikawa-name">✨ 吉伊卡哇熱氣球現身！</div>
+                <span class="balloon-icon-large">🐰</span>
+                <span class="balloon-icon-large">🤍</span>
             </div>
 
             <h1>台東夏日山海美食 4 日遊</h1>
@@ -559,7 +557,7 @@
             </div>
             <div class="info-card">
                 <h3>💡 預算說明</h3>
-                <p>• 兩位大人同行，餐食與伴手禮目前採取「看到想吃就買、隨性自由發揮」的無預算上限模式！[span_36](start_span)[span_36](end_span)</p>
+                <p>• 兩位大人同行，餐食與伴手禮目前採取<code>看到想吃就買、隨性自由發揮</code>的無預算上限模式！[span_36](start_span)[span_36](end_span)</p>
             </div>
         </div>
 
