@@ -9,8 +9,7 @@
             --primary-color: #0284c7;
             --primary-light: #e0f2fe;
             --accent-color: #f59e0b;
-            --festival-orange: #f97316;
-            --festival-pink: #ec4899;
+            --festival-pink: #f472b6;
             --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-main: #1e293b;
@@ -31,47 +30,97 @@
             padding-bottom: 90px;
         }
 
-        /* 官方嘉年華風格主視覺 */
+        /* 沉浸式熱氣球嘉年華主視覺 (含吉伊卡哇與滿天熱氣球) */
         header {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 50%, #0284c7 100%);
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
             color: white;
-            padding: 30px 20px 26px 20px;
+            padding: 35px 20px 30px 20px;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             position: relative;
             overflow: hidden;
             border-bottom: 4px solid var(--accent-color);
         }
 
+        /* 背景滿天飄浮熱氣球裝飾 */
+        .sky-bg-balloons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.25;
+            font-size: 1.5rem;
+            z-index: 1;
+        }
+        .sky-bg-balloons span {
+            position: absolute;
+            animation: floatRandom 4s ease-in-out infinite alternate;
+        }
+        .sky-bg-balloons span:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; font-size: 1.8rem; }
+        .sky-bg-balloons span:nth-child(2) { top: 15%; right: 12%; animation-delay: 1s; font-size: 2rem; }
+        .sky-bg-balloons span:nth-child(3) { top: 60%; left: 12%; animation-delay: 0.5s; font-size: 1.6rem; }
+        .sky-bg-balloons span:nth-child(4) { top: 55%; right: 10%; animation-delay: 1.5s; font-size: 2.2rem; }
+
+        @keyframes floatRandom {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-12px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .festival-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 5px 14px;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: bold;
             letter-spacing: 1px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            margin-bottom: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(4px);
         }
 
-        .balloon-hero-group {
+        /* 吉伊卡哇造型熱氣球主視覺框 */
+        .chiikawa-balloon-card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1e293b;
+            max-width: 220px;
+            margin: 0 auto 12px auto;
+            padding: 12px;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             display: flex;
-            justify-content: center;
-            gap: 12px;
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-            animation: floatBalloons 3.5s ease-in-out infinite;
+            flex-direction: column;
+            align-items: center;
+            animation: floatHeroBalloon 3s ease-in-out infinite;
+            border: 2px solid #fbcfe8;
         }
 
-        @keyframes floatBalloons {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-8px) rotate(3deg);
-            }
+        @keyframes floatHeroBalloon {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-6px) scale(1.02); }
+        }
+
+        .chiikawa-avatar {
+            font-size: 3.2rem;
+            line-height: 1;
+            margin-bottom: 4px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .chiikawa-name {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #db2777;
+            background: #fce7f3;
+            padding: 2px 10px;
+            border-radius: 12px;
         }
 
         header h1 {
@@ -83,7 +132,7 @@
         }
 
         header p {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             opacity: 0.95;
             font-weight: 500;
         }
@@ -248,12 +297,23 @@
 <body>
 
     <header>
-        <div class="festival-badge">🎈 2026 臺灣國際熱氣球嘉年華官方風格</div>
-        <div class="balloon-hero-group">
-            <span>🎈</span><span>🎨</span><span>✨</span>
+        <!-- 背景滿天飄浮熱氣球群 -->
+        <div class="sky-bg-balloons">
+            <span>🎈</span><span>🌈</span><span>🎈</span><span>✨</span>
         </div>
-        <h1>台東夏日山海美食 4 日遊</h1>
-        <p>8/11 (一) ～ 8/14 (四) ｜ 2人同行</p>
+
+        <div class="header-content">
+            <div class="festival-badge">🎈 2026 臺灣國際熱氣球嘉年華</div>
+            
+            <!-- 吉伊卡哇造型熱氣球卡片 -->
+            <div class="chiikawa-balloon-card">
+                <div class="chiikawa-avatar">🐰🤍</div>
+                <div class="chiikawa-name">✨ 吉伊卡哇熱氣球現身！</div>
+            </div>
+
+            <h1>台東夏日山海美食 4 日遊</h1>
+            <p>8/11 (一) ～ 8/14 (四) ｜ 2人同行</p>
+        </div>
     </header>
 
     <div class="container">
@@ -303,7 +363,7 @@
                     <div class="time-card">
                         <div class="time-header">17:45 - 18:45</div>
                         <div class="activity-title">🌿 關山親水公園（備案）</div>
-                        <div class="activity-desc">有體力、有時間才去，累了可直接前往民宿。</div>
+                        <div class="activity-desc">有體力、有時間才去，累了可直接前往飯店。</div>
                         <a href="https://maps.google.com/?q=關山親水公園" target="_blank" class="map-btn">📍 Google 導航</a>
                     </div>
                 </div>
@@ -333,8 +393,8 @@
                 <div class="timeline-item">
                     <div class="time-card">
                         <div class="time-header">05:30 - 07:00</div>
-                        <div class="activity-title">🎈 鹿野高台熱氣球</div>
-                        <div class="activity-desc">清晨欣賞熱氣球升空盛況。結束後返回關山補眠。</div>
+                        <div class="activity-title">🎈 鹿野高台熱氣球 (尋找吉伊卡哇球)</div>
+                        <div class="activity-desc">清晨欣賞熱氣球升空盛況與超萌的吉伊卡哇熱氣球！結束後返回關山補眠。</div>
                         <a href="https://maps.google.com/?q=鹿野高台" target="_blank" class="map-btn">📍 Google 導航</a>
                     </div>
                 </div>
